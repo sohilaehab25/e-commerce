@@ -22,7 +22,9 @@ class User extends Authenticatable
         'last_name',
         'email',
         'password',
-        'facebook_id'
+        'facebook_id',
+        'role'
+
 
     ];
 
@@ -37,6 +39,13 @@ class User extends Authenticatable
         'two_factor_recovery_codes',
         'two_factor_secret',
     ];
+
+
+    public function hasRole($role)
+    {
+        return $this->role === $role; // Adjust according to your role implementation
+    }
+
 
     /**
      * Get the attributes that should be cast.
@@ -62,5 +71,10 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function orders(){
+        return $this->hasMany(Order::class);
+    }
+
 }
 
